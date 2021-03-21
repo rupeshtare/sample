@@ -1,0 +1,292 @@
+==== Check for balanced parentheses =====
+v1 = '{{()}}'
+v2 = '{{(})}'
+
+valid_data = {'}': '{', ')': '('}
+
+def validate_data(v):
+	stack = []
+	for i in v:
+		if i in valid_data.values():
+			stack.append(i)
+		else:
+			j = stack.pop()
+			if j != valid_data.get(i):
+				return "Unbalanced"
+	else:
+		if len(stack) == 0: 
+			return "Balanced"
+		else:
+			return "Unbalanced"
+		
+print(validate_data(v1))
+print(validate_data(v2))
+
+========== Second Max ===========
+
+l = [2,5,4,7,1,3]
+
+max = 0
+sec_max = 0
+
+for i in l:
+    if(i > max):
+		sec_max = max
+		max = i
+	elif(i < max) and (i > sec_max):
+		sec_max = i
+
+print(sec_max)
+
+========== FIBO ===========
+
+def fibo(n):
+  n1 = 0
+  n2 = 1
+  count = 0
+  if n == 1:
+    yield n1
+    count += 1
+  while count < n:
+    yield n1
+    nth = n1 + n2
+    n1, n2 = n2, nth
+    count +=1
+
+for i in fibo(1):
+  print(i)
+
+========== FIBO ===========
+
+def fib(num):
+    if num <= 2:
+        return 1 if num == 2 else 0
+    else:
+        return fib(num - 1) + fib(num - 2)  
+  
+========== String Reverse ======
+
+s = 'apple'
+
+def rec(s):
+	if len(s) == 0:
+		return s
+	else:
+		return rec(s[1:]) + s[0]
+
+rec(s)
+
+
+======== Palindrome ===========
+
+a = 'malayalam'
+
+def palindrome(a):
+  for i in range(len(a)//2):
+    if a[i] != a[-(i+1)]:
+      return False
+  return True
+
+print(palindrome(a))
+
+========== Palindrome 2 ==========
+a = 'malayalam'
+w = ''
+
+for i in a:
+  w = i + w
+
+if a == w:
+  print('Palindrome')
+else:
+  print('Not Palindrome')
+
+========== Number Palindrome ========
+a = 12321
+
+def pali(a):
+  n = 0
+  m = a
+
+  while(m>0):
+    n = n*10 + m%10
+    m //= 10
+  return a == n
+
+print(pali(a))
+
+========== Number of Palindrome from given string ===========
+
+
+def check_palin(s):
+  for i in range(len(s)//2):
+    if s[i] != s[-(i+1)]:
+      return
+  print(s)
+
+s = 'abaab'
+for i in range(len(s)):
+  for j in range(len(s)):
+    if j > i:
+      check_palin(s[i:j+1])
+
+========= Number Reverse ========
+a = 1223345
+
+def rev_num(n):
+  rev = 0
+  while n > 0:
+    rev = rev * 10 + n % 10
+    n //= 10
+  return rev
+
+print(rev_num(a))
+========== Check Armastrong ========
+num = 153
+
+def check_armstrong(num):
+  temp = num
+  su = 0
+  order = len(str(num))
+
+  while temp > 0:
+    digit = temp % 10
+    su += digit ** order
+    temp //= 10
+  return num == su
+ 
+print(check_armstrong(num))
+
+========= Custom Iterator ========
+
+class MyRange:
+  def __init__(self, num):
+    self.num = num
+    self.counter = -1
+
+  def __iter__(self):
+    return self
+
+  def __next__(self):
+    self.counter += 1
+    if self.counter < self.num:
+      return self.counter
+    else:
+      raise StopIteration
+	  
+	  
+for i in MyRange(3):
+  print(i)
+  
+======== Custom Generator with method ========
+
+def MyRangeGenerator(num):
+  i = 0
+  while(i < num):
+    yield i
+    i += 1
+
+for i in MyRangeGenerator(3):
+  print(i)
+    
+======== Custom Generator with class ========
+
+class MyRangeGenerator:
+  def __init__(self, num):
+    self.num = num
+
+  def __iter__(self):
+    return self.__next__()
+
+  def __next__(self):
+    i = 0
+    while(i < self.num):
+      yield i
+      i += 1
+
+for i in MyRangeGenerator(3):
+  print(i)
+  
+======== Method Decorator ==========
+
+def outer(fun):
+  def inner(u):
+    print("Welcome ", u)
+  return inner
+
+@outer
+def deco(user):
+  pass
+
+deco("Rupesh")
+
+========= Class Decorator =============
+
+class DecoClass:
+  def __init__(self, klass):
+    self.klass = klass
+
+  def __call__(self):
+    print("Decorator method")
+    self.klass.test(self)
+
+
+@DecoClass
+class Deco:
+  def test(self):
+    print("Class method")
+
+Deco()
+
+========== Dictionary Sorting =============
+
+d = {'3': 'banana', '10':'apple', '2': 'pear'}
+
+from collections import OrderedDict
+
+sort_by_key = OrderedDict(sorted(d.items(), key=lambda x: int(x[0])))
+
+print('Sort By Key => {sort_by_key}'.format(sort_by_key=sort_by_key))
+
+sort_by_value = OrderedDict(sorted(d.items(), key=lambda x: x[1]))
+
+print('Sort By Value => {sort_by_value}'.format(sort_by_value=sort_by_value))
+
+sort_by_value_length = OrderedDict(sorted(d.items(), key=lambda x: len(x[1])))
+
+print('Sort By Value Length => {sort_by_value_length}'.format(sort_by_value_length=sort_by_value_length))
+
+=========================================
+
+*CHAR vs VARCHAR
+Talking about the CHAR data type:
+- It is a fixed length data type
+- Used to store non-Unicode characters
+- Occupiers 1 byte of space for each character
+
+* NCHAR vs NVARCHAR
+Similar to CHAR data type, the NCHAR data type:
+- Is a fixed length data type
+- Used to store Unicode characters (for example the languages Arabic, German and so on)
+- Occupies 2 bytes of space for each character
+
+** Querying to NCHAR or NVARCHAR is a bit slower then CHAR or VARCHAR. So don't go for NCHAR or NVARCHAR to store non-Unicode characters even though this data type supports that.
+
+* can we update a view ?
+You can insert, update, and delete rows in a view, subject to the following limitations:
+If the view contains joins between multiple tables, you can only insert and update one table in the view, and you can't delete rows.
+You can't directly modify data in views based on union queries.
+
+* Why indexing? Advantages & Disadvantages
+The advantages of indexes are as follows:
+- Their use in queries usually results in much better performance.
+- They make it possible to quickly retrieve (fetch) data.
+- They can be used for sorting. A post-fetch-sort operation can be eliminated.
+- Unique indexes guarantee uniquely identifiable records in the database.
+
+The disadvantages of indexes are as follows:
+- They decrease performance on inserts, updates, and deletes.
+- They take up space (this increases with the number of fields used and the length of the fields).
+- Some databases will monocase values in fields that are indexed.
+
+** You should only create indexes when they are actually needed.
